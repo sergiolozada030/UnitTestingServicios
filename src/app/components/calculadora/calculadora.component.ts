@@ -9,4 +9,8 @@ export class CalculadoraComponent {
   multiply(numberOne: number, numberTwo: number) {
     return numberOne * numberTwo;
   }
+
+  dobleClick() {
+    console.log('es un doble click');
+  }
 }
