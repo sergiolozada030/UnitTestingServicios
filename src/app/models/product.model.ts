@@ -1,13 +1,15 @@
 import { Category } from './category.model';
 
 export interface Product {
-  id: string;
+  id: number;
   title: string;
   price: number;
   images: string[];
   description: string;
   category: Category;
   taxes?: number;
+  creationAt: string;
+  updatedAt: string;
 }
 
 export interface CreateProductDTO extends Omit<Product, 'id' | 'category'> {
