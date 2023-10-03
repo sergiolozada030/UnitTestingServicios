@@ -7,8 +7,6 @@ import { of } from 'rxjs';
 export class ValueService {
   private value = 'valor inicial';
 
-  constructor() {}
-
   getValue() {
     return this.value;
   }

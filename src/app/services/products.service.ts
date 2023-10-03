@@ -6,7 +6,7 @@ import {
   HttpStatusCode,
 } from '@angular/common/http';
 import { retry, catchError, map } from 'rxjs/operators';
-import { throwError, zip } from 'rxjs';
+import { Observable, throwError, zip } from 'rxjs';
 import {
   CreateProductDTO,
   Product,
@@ -38,7 +38,7 @@ export class ProductsService {
     return this.http.get<Product[]>(`${this.apiUrl}/v1/products`);
   }
 
-  getAll(limit?: number, offset?: number) {
+  getAll(limit?: number, offset?: number): Observable<Product[]> {
     let params = new HttpParams();
     if (limit && offset != null) {
       params = params.set('limit', limit);
@@ -54,7 +54,7 @@ export class ProductsService {
           products.map((item) => {
             return {
               ...item,
-              taxes: 0.19 * item.price,
+              taxes: item.price > 0 ? 0.19 * item.price : 0,
             };
           })
         )
