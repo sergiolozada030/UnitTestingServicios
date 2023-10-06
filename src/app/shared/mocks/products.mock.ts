@@ -1,4 +1,12 @@
-import { Product } from 'src/app/models/product.model';
+import { CreateProductDTO, Product } from 'src/app/models/product.model';
+
+export const MOCK_NEW_PRODUCT: CreateProductDTO = {
+  title: 'Es Nuevo',
+  price: 100,
+  description: 'Lorem ipsum dolor',
+  images: ['111'],
+  categoryId: 1,
+};
 
 export const MOCK_PRODUCTOS: Product[] = [
   {

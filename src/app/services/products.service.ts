@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class ProductsService {
-  private apiUrl = `${environment.API_URL}/api`;
+  private apiUrl = `${environment.API_URL}/api/v1`;
 
   constructor(private http: HttpClient) {}
 
@@ -35,7 +35,7 @@ export class ProductsService {
   }
 
   getAllSimple() {
-    return this.http.get<Product[]>(`${this.apiUrl}/v1/products`);
+    return this.http.get<Product[]>(`${this.apiUrl}/products`);
   }
 
   getAll(limit?: number, offset?: number): Observable<Product[]> {
@@ -45,7 +45,7 @@ export class ProductsService {
       params = params.set('offset', offset);
     }
     return this.http
-      .get<Product[]>(`${this.apiUrl}/v1/products`, {
+      .get<Product[]>(`${this.apiUrl}/products`, {
         params,
       })
       .pipe(
@@ -69,15 +69,15 @@ export class ProductsService {
     return this.http.get<Product>(`${this.apiUrl}/products/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === HttpStatusCode.Conflict) {
-          return throwError('Algo esta fallando en el server');
+          return throwError(() => 'Algo esta fallando en el server');
         }
         if (error.status === HttpStatusCode.NotFound) {
-          return throwError('El producto no existe');
+          return throwError(() => 'El producto no existe');
         }
         if (error.status === HttpStatusCode.Unauthorized) {
-          return throwError('No estas permitido');
+          return throwError(() => 'No estas permitido');
         }
-        return throwError('Ups algo salio mal');
+        return throwError(() => 'Ups algo salio mal');
       })
     );
   }

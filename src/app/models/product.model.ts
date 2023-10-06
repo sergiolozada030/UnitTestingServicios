@@ -8,8 +8,8 @@ export interface Product {
   description: string;
   category: Category;
   taxes?: number;
-  creationAt: string;
-  updatedAt: string;
+  creationAt?: string;
+  updatedAt?: string;
 }
 
 export interface CreateProductDTO extends Omit<Product, 'id' | 'category'> {
